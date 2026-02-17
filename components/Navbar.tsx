@@ -66,7 +66,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-6 left-0 right-0 z-50 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="glass-panel rounded-full px-6 py-3 flex items-center justify-between text-white">
+        <div className="px-6 py-3 flex items-center justify-between text-white">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-orange-600">
               <Sparkle weight="fill" className="text-xl" />

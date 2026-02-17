@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <section className="relative pt-40 pb-20 px-6 z-10 min-h-screen flex flex-col justify-center items-center text-center">
       <div className="max-w-4xl mx-auto relative">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8 animate-float">
+        <div className="inline-flex items-center gap-2 px-4 py-2 text-white mb-8">
           <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
           <span className="text-sm font-semibold tracking-wide uppercase">
             Live Drops Happening Now
@@ -32,9 +32,6 @@ export default function Hero() {
             Start Unboxing
             <ArrowRight weight="bold" />
           </a>
-          <button className="w-full sm:w-auto px-8 py-4 bg-orange-950/20 backdrop-blur-md border border-white/30 text-white rounded-full font-bold text-lg hover:bg-white/20 transition-all">
-            View Market
-          </button>
         </div>
       </div>
 
