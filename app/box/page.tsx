@@ -88,7 +88,8 @@ export default function BoxOpeningPage() {
         inventory_item_id: data.inventory_item_id,
       };
       setRevealedItem(item);
-      setBalance(data.new_balance);
+      // DEMO MODE - Calculate balance locally (box costs $15)
+      setBalance(prev => prev - 15);
 
       // Show splash animation
       setOpenState("splash");
@@ -124,7 +125,8 @@ export default function BoxOpeningPage() {
         throw new Error(data.error || "Failed to sell back");
       }
 
-      setBalance(data.new_balance);
+      // DEMO MODE - Calculate balance locally (add buyback price)
+      setBalance(prev => prev + revealedItem.buyback_price);
       setOpenState("decided");
 
       // Reset after showing success

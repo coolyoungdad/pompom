@@ -32,7 +32,7 @@ export async function POST() {
     };
 
     const rarities = ["common", "uncommon", "rare", "ultra"];
-    const weights = [60, 25, 10, 5]; // Weighted probabilities
+    const weights = [73, 20, 6, 1]; // Weighted probabilities: 73% common, 20% uncommon, 6% rare, 1% ultra
     const random = Math.random() * 100;
     let cumulativeWeight = 0;
     let selectedRarity = "common";
@@ -50,14 +50,18 @@ export async function POST() {
 
     // Buyback price ranges - most lose money, some profit
     const buybackRanges: Record<string, { min: number; max: number }> = {
-      common: { min: 8, max: 15 },      // Users lose $5-12 most of the time (60%)
-      uncommon: { min: 25, max: 40 },   // Users break even or profit $5-20 (25%)
-      rare: { min: 50, max: 80 },       // Nice profit $30-60 (10%)
-      ultra: { min: 150, max: 300 },    // Big win $130-280 (5%)
+      common: { min: 8, max: 15 },      // Users lose $5-12 most of the time (73%)
+      uncommon: { min: 25, max: 40 },   // Users break even or profit $5-20 (20%)
+      rare: { min: 50, max: 80 },       // Nice profit $30-60 (6%)
+      ultra: { min: 150, max: 300 },    // Big win $130-280 (1%)
     };
 
     const range = buybackRanges[selectedRarity];
     const buybackPrice = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+
+    // DEMO MODE - Calculate new balance (box costs $15)
+    const currentBalance = 100.00; // In real mode, this would come from the request or database
+    const newBalance = currentBalance - 15;
 
     return NextResponse.json({
       success: true,
@@ -69,7 +73,7 @@ export async function POST() {
         buyback_price: buybackPrice,
       },
       inventory_item_id: `inv-${Date.now()}`,
-      new_balance: 80.01, // Mock new balance after opening
+      new_balance: newBalance,
     });
 
     // REAL CODE - Uncomment when Supabase is set up
