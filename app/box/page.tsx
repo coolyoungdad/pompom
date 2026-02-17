@@ -211,15 +211,15 @@ export default function BoxOpeningPage() {
         </div>
 
         {/* Three Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-180px)]">
           {/* Left Sidebar - Box Contents */}
-          <div className="hidden lg:block lg:col-span-3">
+          <div className="hidden lg:block lg:col-span-3 h-full overflow-y-auto">
             <BoxContents onItemClick={setSelectedItem} />
           </div>
 
           {/* Center - Main Box Area */}
-          <div className="lg:col-span-6">
-            <div className="glass-card-white p-12 rounded-3xl text-center min-h-[700px] flex flex-col justify-center">
+          <div className="lg:col-span-6 h-full overflow-y-auto">
+            <div className="p-12 text-center flex flex-col justify-center min-h-full">
           {/* Idle State */}
           {openState === "idle" && (
             <>
@@ -440,7 +440,7 @@ export default function BoxOpeningPage() {
           </div>
 
           {/* Right Sidebar - Live Chat */}
-          <div className="hidden lg:block lg:col-span-3">
+          <div className="hidden lg:block lg:col-span-3 h-full overflow-y-auto">
             <LiveChat />
           </div>
         </div>

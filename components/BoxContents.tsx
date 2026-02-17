@@ -107,7 +107,7 @@ export default function BoxContents({ onItemClick }: BoxContentsProps) {
   ];
 
   return (
-    <div className="glass-card-white rounded-2xl p-6 h-[calc(100vh-180px)] flex flex-col">
+    <div className="h-full flex flex-col">
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-orange-950">What&apos;s in the Box?</h2>

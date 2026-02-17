@@ -141,7 +141,7 @@ export default function LiveChat() {
   };
 
   return (
-    <div className="glass-card-white rounded-2xl p-6 h-[calc(100vh-180px)] flex flex-col">
+    <div className="h-full flex flex-col">
       <div className="mb-4">
         <h2 className="text-2xl font-bold text-orange-950 mb-1">Live Chat</h2>
         <div className="flex items-center gap-2 text-sm text-orange-600">
