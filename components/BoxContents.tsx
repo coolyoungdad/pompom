@@ -135,8 +135,8 @@ export default function BoxContents({ onItemClick }: BoxContentsProps) {
         </div>
       </div>
 
-      {/* Scrollable Items List */}
-      <div className="flex-1 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+      {/* Items List */}
+      <div className="space-y-2">
         {filteredItems.map((item, index) => (
           <button
             key={`${item.name}-${index}`}
@@ -178,23 +178,6 @@ export default function BoxContents({ onItemClick }: BoxContentsProps) {
           </button>
         ))}
       </div>
-
-      <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(251, 146, 60, 0.1);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(251, 146, 60, 0.3);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(251, 146, 60, 0.5);
-        }
-      `}</style>
     </div>
   );
 }

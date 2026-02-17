@@ -151,7 +151,7 @@ export default function LiveChat() {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2 custom-scrollbar">
+      <div className="space-y-3 mb-4">
         {messages.map((msg) => (
           <div key={msg.id} className="animate-slide-in">
             {msg.type === "pull" ? (
@@ -228,20 +228,6 @@ export default function LiveChat() {
       </form>
 
       <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(251, 146, 60, 0.1);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(251, 146, 60, 0.3);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(251, 146, 60, 0.5);
-        }
         @keyframes slide-in {
           from {
             opacity: 0;
