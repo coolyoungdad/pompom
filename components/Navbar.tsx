@@ -40,6 +40,10 @@ export default function Navbar() {
     if (user) {
       setUser(user);
       await fetchBalance(user.id);
+    } else {
+      // DEMO MODE - Show mock user and balance when not authenticated
+      setUser({ id: "demo-user", email: "demo@pompom.com" });
+      setBalance(100.00);
     }
     setIsLoading(false);
   };

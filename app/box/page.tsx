@@ -165,6 +165,17 @@ export default function BoxOpeningPage() {
       {/* Item Detail Modal */}
       <ItemDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />
 
+      {/* Backdrop for panels */}
+      {(showContents || showChat) && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 transition-opacity"
+          onClick={() => {
+            setShowContents(false);
+            setShowChat(false);
+          }}
+        />
+      )}
+
       {/* Slide-out Contents Panel */}
       <div
         className={`fixed top-0 left-0 h-full w-96 bg-white shadow-2xl transform transition-transform duration-300 z-40 ${
@@ -176,9 +187,9 @@ export default function BoxOpeningPage() {
             <h3 className="text-xl font-bold text-orange-950">Box Contents</h3>
             <button
               onClick={() => setShowContents(false)}
-              className="p-2 hover:bg-orange-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-red-100 rounded-lg transition-colors bg-orange-50"
             >
-              <X weight="bold" className="text-xl text-orange-600" />
+              <X weight="bold" className="text-2xl text-orange-600" />
             </button>
           </div>
           <div className="flex-1 overflow-y-auto">
@@ -198,9 +209,9 @@ export default function BoxOpeningPage() {
             <h3 className="text-xl font-bold text-orange-950">Live Chat</h3>
             <button
               onClick={() => setShowChat(false)}
-              className="p-2 hover:bg-orange-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-red-100 rounded-lg transition-colors bg-orange-50"
             >
-              <X weight="bold" className="text-xl text-orange-600" />
+              <X weight="bold" className="text-2xl text-orange-600" />
             </button>
           </div>
           <div className="flex-1 overflow-hidden">
