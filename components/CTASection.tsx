@@ -1,12 +1,6 @@
 "use client";
 
-import { Trophy } from "@phosphor-icons/react/dist/ssr";
-
-const stats = [
-  { value: "$2.5M+", label: "Value Unboxed" },
-  { value: "4.9/5", label: "App Store" },
-  { value: "Instant", label: "Payouts" },
-];
+import { Sparkle } from "@phosphor-icons/react/dist/ssr";
 
 export default function CTASection() {
   return (
@@ -17,27 +11,15 @@ export default function CTASection() {
 
         <div className="relative z-10">
           <div className="inline-block p-4 bg-white/10 backdrop-blur-md rounded-full mb-6">
-            <Trophy weight="fill" className="text-4xl text-yellow-300" />
+            <Sparkle weight="fill" className="text-4xl text-yellow-300" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Join 250,000+ Winners
+            Create a Free Account
           </h2>
           <p className="text-xl text-orange-50 max-w-2xl mx-auto mb-10">
-            Climb the leaderboards, earn XP for every unbox, and unlock exclusive
-            VIP boxes.
+            Start opening mystery boxes today and discover your favorite collectibles.
+            Instant buyback on every item — no risk, all reward.
           </p>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-2xl flex flex-col items-center min-w-[140px]"
-              >
-                <span className="text-3xl font-bold text-white">{stat.value}</span>
-                <span className="text-sm text-orange-100">{stat.label}</span>
-              </div>
-            ))}
-          </div>
 
           <div className="mt-12">
             <button className="bg-white text-orange-600 px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:scale-105 transition-all shadow-lg">
