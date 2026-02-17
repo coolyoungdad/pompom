@@ -40,7 +40,7 @@ export default function BoxOpeningPage() {
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [countdown, setCountdown] = useState(3);
   const [showContents, setShowContents] = useState(false);
-  const [showChat, setShowChat] = useState(false);
+  const [showChat, setShowChat] = useState(true);
 
   useEffect(() => {
     checkAuth();
@@ -365,13 +365,13 @@ export default function BoxOpeningPage() {
 
           {/* Revealed Item */}
           {openState === "revealing" && revealedItem && (
-            <div className="max-w-2xl mx-auto animate-[reveal-scale_0.5s_ease-out]">
-              <div className="text-center mb-8">
+            <div className="w-80 mx-auto animate-[reveal-scale_0.5s_ease-out]">
+              <div className="text-center mb-4">
                 <Sparkle
                   weight="fill"
-                  className="text-8xl text-orange-300 mx-auto mb-4 animate-pulse-glow drop-shadow-lg"
+                  className="text-6xl text-orange-300 mx-auto mb-2 animate-pulse-glow drop-shadow-lg"
                 />
-                <h2 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
+                <h2 className="text-3xl font-bold text-white drop-shadow-lg">
                   You got!
                 </h2>
               </div>
@@ -379,52 +379,48 @@ export default function BoxOpeningPage() {
               <div
                 className={`${
                   RARITY_COLORS[revealedItem.rarity].bg
-                } ${RARITY_COLORS[revealedItem.rarity].border} border-4 rounded-3xl p-10 shadow-2xl backdrop-blur-sm`}
+                } ${RARITY_COLORS[revealedItem.rarity].border} border-4 rounded-3xl p-6 shadow-2xl backdrop-blur-sm`}
               >
-                <div className="bg-white rounded-2xl aspect-square flex items-center justify-center mb-6 p-12 shadow-lg">
-                  <Package weight="fill" className="text-[160px] text-orange-600" />
+                <div className="bg-white rounded-2xl aspect-square flex items-center justify-center mb-4 p-8 shadow-lg">
+                  <Package weight="fill" className="text-[120px] text-orange-600" />
                 </div>
 
-                <h3 className="text-3xl font-bold text-orange-950 mb-3 text-center">
+                <h3 className="text-xl font-bold text-orange-950 mb-2 text-center">
                   {revealedItem.name}
                 </h3>
-                <p className="text-sm text-orange-600 font-mono mb-6 text-center">
+                <p className="text-xs text-orange-600 font-mono mb-4 text-center">
                   {revealedItem.sku}
                 </p>
 
-                <div className="flex justify-center mb-6">
+                <div className="flex justify-center mb-4">
                   <div
                     className={`inline-block ${
                       RARITY_COLORS[revealedItem.rarity].bg
                     } ${
                       RARITY_COLORS[revealedItem.rarity].text
-                    } px-6 py-3 rounded-full font-bold uppercase text-sm border-2 border-white/50`}
+                    } px-4 py-2 rounded-full font-bold uppercase text-xs border-2 border-white/50`}
                   >
                     {revealedItem.rarity}
                   </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 mb-8 shadow-lg">
-                  <div className="text-sm text-orange-600 mb-2 font-medium">Instant Buyback Value</div>
-                  <div className="text-5xl font-bold text-orange-950">
+                <div className="bg-white rounded-xl p-4 mb-4 shadow-lg">
+                  <div className="text-xs text-orange-600 mb-1 font-medium">Instant Buyback</div>
+                  <div className="text-3xl font-bold text-orange-950">
                     ${revealedItem.buyback_price.toFixed(2)}
                   </div>
                 </div>
 
-                <p className="text-center text-orange-800 mb-6 text-lg font-medium">
-                  What would you like to do?
-                </p>
-
-                <div className="flex gap-4">
+                <div className="flex flex-col gap-2">
                   <button
                     onClick={handleSellBack}
-                    className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-5 rounded-xl font-bold text-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg hover:shadow-green-500/50 hover:scale-105"
+                    className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold text-sm hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg hover:shadow-green-500/50 hover:scale-105"
                   >
                     💰 Sell for ${revealedItem.buyback_price.toFixed(2)}
                   </button>
                   <button
                     onClick={handleKeep}
-                    className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-5 rounded-xl font-bold text-lg hover:from-orange-600 hover:to-red-600 transition-all shadow-lg hover:shadow-orange-500/50 hover:scale-105"
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-xl font-bold text-sm hover:from-orange-600 hover:to-red-600 transition-all shadow-lg hover:shadow-orange-500/50 hover:scale-105"
                   >
                     ⭐ Keep It
                   </button>
