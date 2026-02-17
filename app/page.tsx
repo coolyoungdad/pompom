@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import ActivityTicker from "@/components/ActivityTicker";
 import HowItWorks from "@/components/HowItWorks";
 import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
 import BackgroundDecorations from "@/components/BackgroundDecorations";
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
       <ActivityTicker />
       <HowItWorks />
       <CTASection />
-      <Footer />
     </div>
   );
 }

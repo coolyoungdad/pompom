@@ -64,7 +64,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-6 left-0 right-0 z-50 px-6">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-3 backdrop-blur-md bg-gradient-to-b from-orange-950/80 to-transparent">
       <div className="max-w-6xl mx-auto">
         <div className="px-6 py-3 flex items-center justify-between text-white">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
