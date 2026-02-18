@@ -47,28 +47,27 @@ export default function BoxOpeningPage() {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
-    if (!user) {
-      router.push("/auth/login?redirect=/box");
-      return;
-    }
-
-    setUser(user);
-
-    const { data } = await supabase
-      .from("users")
-      .select("account_balance")
-      .eq("id", user.id)
-      .single();
-
-    if (data) {
-      setBalance(data.account_balance);
-      dispatchBalanceUpdate(data.account_balance, "initial_load");
+    if (user) {
+      setUser(user);
+      const { data } = await supabase
+        .from("users")
+        .select("account_balance")
+        .eq("id", user.id)
+        .single();
+      if (data) {
+        setBalance(data.account_balance);
+        dispatchBalanceUpdate(data.account_balance, "initial_load");
+      }
     }
 
     setIsLoading(false);
   };
 
   const handleOpenBox = async () => {
+    if (!user) {
+      router.push("/auth/login?redirect=/box");
+      return;
+    }
     setError(null);
     setOpenState("opening");
 
@@ -228,14 +227,14 @@ export default function BoxOpeningPage() {
 
                 <button
                   onClick={handleOpenBox}
-                  disabled={!canAffordBox}
+                  disabled={!!user && !canAffordBox}
                   className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white px-10 py-4 rounded-xl font-bold text-lg hover:from-orange-600 hover:to-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-2xl hover:shadow-orange-500/50 hover:scale-105 flex items-center justify-center gap-3"
                 >
                   <Sparkle weight="fill" className="text-xl" />
-                  Open Now!
+                  {user ? "Open Now!" : "Sign Up to Open"}
                 </button>
 
-                {!canAffordBox && (
+                {user && !canAffordBox && (
                   <p className="text-red-500 mt-3 font-medium text-sm">
                     Insufficient balance. Please top up your account.
                   </p>
