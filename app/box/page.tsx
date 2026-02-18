@@ -462,7 +462,7 @@ export default function BoxOpeningPage() {
               </h3>
               <button onClick={() => setMobilePanel("none")} className="text-orange-400 hover:text-orange-600 font-bold text-lg">✕</button>
             </div>
-            <div className="flex-1 overflow-hidden flex flex-col min-h-0 p-3">
+            <div className={`flex-1 p-3 ${mobilePanel === "contents" ? "overflow-y-auto" : "overflow-hidden flex flex-col min-h-0"}`}>
               {mobilePanel === "contents" ? (
                 <BoxContents onItemClick={(item) => { setSelectedItem(item); setMobilePanel("none"); }} />
               ) : (

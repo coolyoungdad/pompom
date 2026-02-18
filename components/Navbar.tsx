@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Sparkle, User, SignOut } from "@phosphor-icons/react/dist/ssr";
+import { Sparkle, User, SignOut, List, X } from "@phosphor-icons/react/dist/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { onBalanceUpdate } from "@/lib/events/balance";
 
@@ -11,11 +11,11 @@ export default function Navbar() {
   const [user, setUser] = useState<any>(null);
   const [balance, setBalance] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     checkAuth();
 
-    // Subscribe to auth changes
     const supabase = createClient();
     const {
       data: { subscription },
@@ -29,7 +29,6 @@ export default function Navbar() {
       }
     });
 
-    // Listen for balance update events from box opening / sellback
     const unsubscribeBalance = onBalanceUpdate(({ newBalance }) => {
       setBalance(newBalance);
     });
@@ -42,10 +41,7 @@ export default function Navbar() {
 
   const checkAuth = async () => {
     const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
+    const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       setUser(user);
       await fetchBalance(user.id);
@@ -63,15 +59,13 @@ export default function Navbar() {
       .select("account_balance")
       .eq("id", userId)
       .single();
-
-    if (data) {
-      setBalance(data.account_balance);
-    }
+    if (data) setBalance(data.account_balance);
   };
 
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
+    setMenuOpen(false);
     router.push("/");
   };
 
@@ -90,15 +84,18 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               {user ? (
                 <>
+                  {/* Balance + Deposit — always visible */}
                   <div className="flex items-center bg-orange-100 rounded-full overflow-hidden">
                     <span className="pl-3 pr-2 text-sm font-bold text-orange-950">${balance.toFixed(2)}</span>
                     <button
                       onClick={() => router.push("/topup")}
-                      className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 m-0.5 rounded-full font-bold text-xs transition-colors"
+                      className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 m-0.5 rounded-full font-bold text-xs transition-colors hidden sm:block"
                     >
                       Deposit
                     </button>
                   </div>
+
+                  {/* Desktop: Profile + Sign Out */}
                   <button
                     onClick={() => router.push("/profile")}
                     className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-orange-800 hover:text-orange-600 transition-colors"
@@ -108,10 +105,18 @@ export default function Navbar() {
                   </button>
                   <button
                     onClick={handleSignOut}
-                    className="flex items-center gap-1.5 bg-orange-100 hover:bg-orange-200 px-3 py-1.5 rounded-full font-medium text-xs text-orange-800 transition-colors"
+                    className="hidden sm:flex items-center gap-1.5 bg-orange-100 hover:bg-orange-200 px-3 py-1.5 rounded-full font-medium text-xs text-orange-800 transition-colors"
                   >
                     <SignOut weight="bold" className="text-base" />
-                    <span className="hidden sm:inline">Sign Out</span>
+                    Sign Out
+                  </button>
+
+                  {/* Mobile: Hamburger */}
+                  <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="sm:hidden p-2 rounded-full bg-orange-100 hover:bg-orange-200 transition-colors"
+                  >
+                    {menuOpen ? <X weight="bold" className="text-xl text-orange-950" /> : <List weight="bold" className="text-xl text-orange-950" />}
                   </button>
                 </>
               ) : (
@@ -133,6 +138,33 @@ export default function Navbar() {
             </div>
           )}
         </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && user && (
+          <div className="sm:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md border-b border-orange-100 shadow-lg py-2 px-6">
+            <button
+              onClick={() => { router.push("/profile"); setMenuOpen(false); }}
+              className="w-full flex items-center gap-3 py-3 text-orange-950 font-semibold border-b border-orange-50"
+            >
+              <User weight="bold" className="text-lg text-orange-600" />
+              View Profile
+            </button>
+            <button
+              onClick={() => { router.push("/topup"); setMenuOpen(false); }}
+              className="w-full flex items-center gap-3 py-3 text-orange-950 font-semibold border-b border-orange-50"
+            >
+              <Sparkle weight="fill" className="text-lg text-orange-600" />
+              Deposit
+            </button>
+            <button
+              onClick={handleSignOut}
+              className="w-full flex items-center gap-3 py-3 text-orange-800 font-semibold"
+            >
+              <SignOut weight="bold" className="text-lg text-orange-400" />
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -19,8 +19,8 @@ export default function ItemDetailModal({ item, onClose }: ItemDetailModalProps)
   if (!item) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-fade-in">
-      <div className="relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden animate-scale-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose}>
+      <div className="relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh] animate-scale-in" onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
           onClick={onClose}
