@@ -157,6 +157,7 @@ export default function BoxOpeningPage() {
   };
 
   const canAffordBox = balance >= BOX_PRICE;
+  const [mobilePanel, setMobilePanel] = useState<"none" | "contents" | "chat">("none");
 
   if (isLoading) {
     return (
@@ -428,6 +429,50 @@ export default function BoxOpeningPage() {
         </div>
 
       </div>
+
+      {/* Mobile Bottom Buttons */}
+      <div className="fixed bottom-4 left-0 right-0 flex justify-center gap-3 z-40 lg:hidden">
+        <button
+          onClick={() => setMobilePanel(mobilePanel === "contents" ? "none" : "contents")}
+          className="flex items-center gap-2 bg-white/95 backdrop-blur-md border border-orange-200 text-orange-950 px-4 py-2.5 rounded-full font-bold text-sm shadow-lg"
+        >
+          <ListBullets weight="bold" className="text-base" />
+          What's Inside
+        </button>
+        <button
+          onClick={() => setMobilePanel(mobilePanel === "chat" ? "none" : "chat")}
+          className="flex items-center gap-2 bg-white/95 backdrop-blur-md border border-orange-200 text-orange-950 px-4 py-2.5 rounded-full font-bold text-sm shadow-lg"
+        >
+          <ChatCircleDots weight="fill" className="text-base" />
+          Live Chat
+        </button>
+      </div>
+
+      {/* Mobile Panel Drawer */}
+      {mobilePanel !== "none" && (
+        <div className="fixed inset-0 z-50 lg:hidden flex flex-col justify-end">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setMobilePanel("none")} />
+          <div className="relative bg-white rounded-t-3xl shadow-2xl flex flex-col" style={{ maxHeight: "75vh" }}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-orange-100 flex-shrink-0">
+              <h3 className="font-bold text-orange-950 text-sm flex items-center gap-2">
+                {mobilePanel === "contents" ? (
+                  <><ListBullets weight="bold" className="text-base" /> What's Inside</>
+                ) : (
+                  <><ChatCircleDots weight="fill" className="text-base" /> Live Chat</>
+                )}
+              </h3>
+              <button onClick={() => setMobilePanel("none")} className="text-orange-400 hover:text-orange-600 font-bold text-lg">✕</button>
+            </div>
+            <div className="flex-1 overflow-hidden flex flex-col min-h-0 p-3">
+              {mobilePanel === "contents" ? (
+                <BoxContents onItemClick={(item) => { setSelectedItem(item); setMobilePanel("none"); }} />
+              ) : (
+                <LiveChat />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         @keyframes fadeIn {
