@@ -3,11 +3,13 @@ import Stripe from "stripe";
 import { createClient } from "@/lib/supabase/server";
 import { BOX_PRICE, SHIPPING_FEE } from "@/lib/types/database";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-01-28.clover",
-});
-
 export async function POST(request: NextRequest) {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return NextResponse.json({ error: "Payments not configured" }, { status: 503 });
+  }
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2026-01-28.clover",
+  });
   try {
     const { quantity = 1 } = await request.json();
 
